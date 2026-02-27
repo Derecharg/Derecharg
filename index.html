@@ -1,0 +1,1000 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Derecharg - Academia de Derecho Estratégica</title>
+    <meta name="description"
+        content="Recursos y contenido para estudiantes de derecho. Domina el Derecho Administrativo, Societario y Reales con Derecharg.">
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        /* Estilos adicionales para el sistema de puntos y login */
+        .auth-nav {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+        }
+
+        .user-badge {
+            background: #003366;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9em;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .points-pill {
+            background: #e6b400;
+            color: #333;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .auth-box form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .auth-box input {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-XXXXXXXXXX');
+    </script>
+
+    <!-- Custom Tracking Events -->
+    <script>
+        function trackSubjectView(subjectName) {
+            gtag('event', 'view_subject_detail', {
+                'event_category': 'Engagement',
+                'event_label': subjectName,
+                'value': 1
+            });
+            console.log("Analytics: Viendo materia " + subjectName);
+        }
+
+        function trackPurchaseAttempt(method, subject) {
+            gtag('event', 'begin_checkout', {
+                'event_category': 'Sales',
+                'event_label': subject,
+                'payment_type': method
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <div class="auth-nav">
+        <div id="logged-out-nav"><button onclick="abrirModalAuth()" class="user-badge"
+                style="background: rgba(255,255,255,0.1);">Ingresar / Registro</button></div>
+        <div id="logged-in-nav" style="display: none;">
+            <div class="user-badge" onclick="abrirModalAuth()"><span
+                    id="user-email-display">usuario@estudiante.com</span><span class="points-pill"><span
+                        id="user-points-display">50</span>⚖️ </span></div>
+        </div>
+    </div>
+    <nav class="navbar-derecharg"><img src="logo_derecharg.png" alt="Derecharg Logo" class="logo-nav"></nav>
+    <header class="hero">
+        <div class="container">
+            <h1>Domina el Derecho con Casos Prácticos Reales</h1>
+            <p>El material de estudio definitivo para estudiantes de derecho. Simplificamos conceptos complejos de forma
+                clara y directa para que apruebes con confianza.</p><a href="#materias" class="cta-button">Ver Materias
+                Disponibles</a>
+        </div>
+    </header>
+    <section class="benefits">
+        <div class="container">
+            <h2>Por qué estudiar con nuestro método</h2>
+            <div class="grid-3">
+                <div class="card">
+                    <div class="icon">📖</div>
+                    <h3>Resúmenes Claros</h3>
+                    <p>Sintetizamos la doctrina y jurisprudencia más importante en un lenguaje accesible para que
+                        ahorres tiempo al estudiar y vayas al grano.</p>
+                </div>
+                <div class="card">
+                    <div class="icon">⚖️ </div>
+                    <h3>Enfoque Práctico</h3>
+                    <p>Aprende a aplicar la teoría dura mediante el análisis constante de fallos y resolución de
+                        casos
+                        reales requeridos en la currícula.</p>
+                </div>
+                <div class="card">
+                    <div class="icon">🎯</div>
+                    <h3>Actualización Constante</h3>
+                    <p>Todo nuestro material se mantiene siempre actualizado con las últimas reformas legislativas,
+                        normativas y jurisprudencia de corte.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="materias" class="subjects">
+        <div class="container">
+            <h2 class="titulo-seccion">Catálogo Académico Derecharg</h2>
+            <p class="subtitulo-seccion">Selecciona tu materia para ingresar al visor de contenido.</p>
+            <h3 class="categoria-titulo">Ciclo Básico y Fundamentos</h3>
+            <div class="grid-materias">
+                <div class="card-materia" onclick="abrirVisor('Introducción al Derecho')">
+                    <h3>Introducción al Derecho</h3>
+                </div>
+                <div class="card-materia" onclick="abrirVisor('Introducción a la Sociología')">
+                    <h3>Introducción a la Sociología</h3>
+                </div>
+                <div class="card-materia" onclick="abrirVisor('Historia Constitucional')">
+                    <h3>Historia Constitucional</h3>
+                </div>
+                <div class="card-materia" onclick="abrirVisor('Derecho Romano')">
+                    <h3>Derecho Romano</h3>
+                </div>
+                <div class="card-materia" onclick="abrirVisor('Derecho Político')">
+                    <h3>Derecho Político</h3>
+                </div>
+                <div class="card-materia" onclick="abrirVisor('Economía Política')">
+                    <h3>Economía Política</h3>
+                </div>
+                <div class="card-materia" onclick="abrirVisor('Sociología Jurídica')">
+                    <h3>Sociología Jurídica</h3>
+                </div>
+                <div class="card-materia" onclick="abrirVisor('Filosofía del Derecho')">
+                    <h3>Filosofía del Derecho</h3>
+                </div>
+            </div>
+            <h3 class="categoria-titulo">Derecho Público</h3>
+            <div class="grid-materias">
+                <div class="card-materia destacado"
+                    onclick="abrirModalInfo(); trackSubjectView('Derecho Administrativo')">
+                    <h3>Derecho Administrativo</h3>
+                </div>
+                <div class="card-materia" onclick="window.open('https://mpago.la/2dik636', '_blank')">
+                    <h3>Derecho Penal</h3>
+                </div>
+                <div class="card-materia" onclick="abrirVisor('Derecho Internacional Público')">
+                    <h3>Derecho Internacional Público</h3>
+                </div>
+                <div class="card-materia" onclick="abrirVisor('Derecho Público Provincial y Municipal')">
+                    <h3>D. Público Provincial y Municipal</h3>
+                </div>
+                <div class="card-materia" onclick="abrirVisor('Derechos Humanos')">
+                    <h3>Derechos Humanos</h3>
+                </div>
+                <div class="card-materia" onclick="abrirVisor('Derecho Financiero')">
+                    <h3>Derecho Financiero</h3>
+                </div>
+            </div>
+            <h3 class="categoria-titulo">Derecho Privado y Patrimonial</h3>
+            <div class="grid-materias">
+                <div class="card-materia destacado" onclick="abrirModalInfoSocietario()">
+                    <h3>Derecho Societario</h3>
+                </div>
+                <div class="card-materia destacado" onclick="abrirModalInfoReales()">
+                    <h3>Derechos Reales</h3>
+                </div>
+                <div class="card-materia" onclick="abrirVisor('Derecho Privado 1')">
+                    <h3>Derecho Privado 1</h3>
+                </div>
+                <div class="card-materia" onclick="abrirVisor('Derecho Contractual')">
+                    <h3>Derecho Contractual</h3>
+                </div>
+                <div class="card-materia" onclick="abrirVisor('Derecho de Familia')">
+                    <h3>Derecho de Familia</h3>
+                </div>
+                <div class="card-materia" onclick="abrirVisor('Derecho Sucesorio')">
+                    <h3>Derecho Sucesorio</h3>
+                </div>
+                <div class="card-materia" onclick="abrirVisor('Derecho Concursal')">
+                    <h3>Derecho Concursal</h3>
+                </div>
+            </div>
+            <h3 class="categoria-titulo">Especializaciones y Práctica</h3>
+            <div class="grid-materias">
+                <div class="card-materia" onclick="abrirVisor('Derecho Procesal 1')">
+                    <h3>Derecho Procesal I</h3>
+                </div>
+                <div class="card-materia" onclick="abrirVisor('Derecho Procesal 2')">
+                    <h3>Derecho Procesal II</h3>
+                </div>
+                <div class="card-materia" onclick="abrirVisor('Derecho de la Navegación y Aeronáutica')">
+                    <h3>D. Navegación y Aeronáutica</h3>
+                </div>
+                <div class="card-materia" onclick="abrirVisor('Derecho Agrario')">
+                    <h3>Derecho Agrario</h3>
+                </div>
+                <div class="card-materia" onclick="abrirVisor('Derecho Minero')">
+                    <h3>Derecho Minero</h3>
+                </div>
+                <div class="card-materia" onclick="abrirVisor('Derecho Social del Trabajo')">
+                    <h3>D. Social del Trabajo</h3>
+                </div>
+                <div class="card-materia" onclick="abrirVisor('Derecho Colectivo del Trabajo')">
+                    <h3>D. Colectivo del Trabajo</h3>
+                </div>
+                <div class="card-materia" onclick="abrirVisor('Derecho Notarial y Registral')">
+                    <h3>D. Notarial y Registral</h3>
+                </div>
+                <div class="card-materia" onclick="abrirVisor('Mediación')">
+                    <h3>Mediación</h3>
+                </div>
+                <div class="card-materia" onclick="abrirVisor('Teoría del Conflicto')">
+                    <h3>Teoría del Conflicto</h3>
+                </div>
+                <div class="card-materia" onclick="abrirVisor('Derecho Internacional Privado')">
+                    <h3>D. Internacional Privado</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="lead-magnet" id="descarga-gratis">
+        <div class="container magnet-container">
+            <div class="magnet-text">
+                <h2 style="color: white !important;">Comprobá nuestra calidad técnica ⚖️ </h2>
+                <p>Dejanos tu correo y te enviamos la <strong>Unidad 1 de Derecho Administrativo</strong> (Teoría del
+                    Acto Administrativo) directo a tu bandeja de entrada.</p>
+
+                <ul class="magnet-features">
+                    <li>✅ Resumen 100% Actualizado</li>
+                    <li>✅ Lenguaje técnico-académico</li>
+                    <li>✅ Cuadros sinópticos exclusivos</li>
+                </ul>
+            </div>
+
+            <div class="magnet-action">
+                <form id="lead-form" class="pro-form" novalidate>
+                    <input type="text" id="lead-name" placeholder="Tu nombre" required>
+                    <span id="name-error" class="error-message">Por favor, ingresá tu nombre</span>
+
+                    <input type="email" id="lead-email" placeholder="Tu correo de estudiante" required>
+                    <span id="email-error" class="error-message">Ingresá un correo válido (ej: nombre@mail.com)</span>
+
+                    <button type="submit" class="btn-magnet" id="btn-submit-lead">
+                        <span class="btn-text">📥 Obtener Unidad 1 Gratis</span>
+                        <div class="spinner" id="loader-spinner" style="display:none;"></div>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+    <section class="testimonios">
+        <div class="container">
+            <h2 class="titulo-seccion">Lo que dicen los futuros colegas</h2>
+            <p class="subtitulo-seccion">Más de 15 alumnos ya aprobaron usando el método Derecharg</p>
+            <div class="testimonios-grid">
+                <div class="testimonio-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="comentario">"Increíble cómo sintetizaron Administrativo II. Estaba perdidísimo con los
+                        fallos y el resumen va directo al punto. Aprobé con 8."</p>
+                    <div class="usuario">
+                        <div class="user-info"><strong>Pedro Rodriguez</strong><span>Estudiante de 5to año UNLP</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonio-card">
+                    <div class="stars">★★★★☆</div>
+                    <p class="comentario">"Los casos prácticos que incluyen son la clave. En el parcial me tomaron uno
+                        casi idéntico al que leí en el PDF de Derecharg."</p>
+                    <div class="usuario">
+                        <div class="user-info"><strong>Ramiro Campusano</strong><span>estudiante de 3er año</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonio-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="comentario">"Valen cada centavo. Te ahorran semanas de lectura pesada. La claridad con la
+                        que explican Sociedades es de otro nivel."</p>
+                    <div class="usuario">
+                        <div class="user-info"><strong>Lucía Fernández</strong><span>Graduada reciente</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="faq-section">
+        <div class="container">
+            <h2 class="titulo-seccion">Preguntas Frecuentes</h2>
+            <p class="subtitulo-seccion">Despejá tus dudas antes de empezar a estudiar</p>
+            <div class="accordion">
+                <div class="accordion-item"><button class="accordion-header" onclick="toggleAccordion(this)">¿Los
+                        resúmenes están actualizados al programa 2026? <span class="icon">+</span></button>
+                    <div class="accordion-content">
+                        <p>Sí, todos nuestros materiales se revisan y actualizan cuatrimestralmente incluyendo los
+                            últimos fallos relevantes.</p>
+                    </div>
+                </div>
+                <div class="accordion-item"><button class="accordion-header" onclick="toggleAccordion(this)">¿Cómo
+                        recibo el material una vez realizado el pago? <span class="icon">+</span></button>
+                    <div class="accordion-content">
+                        <p>El acceso es inmediato. Si pagas con Mercado Pago, el sistema te redirige a la carpeta de
+                            Google Drive. Si transfieres, una vez que nos envías el comprobante por WhatsApp, te
+                            habilitamos el acceso en menos de 10 minutos.</p>
+                    </div>
+                </div>
+                <div class="accordion-item"><button class="accordion-header" onclick="toggleAccordion(this)">¿El pago
+                        de
+                        $24.499 es por una materia o por todo el pack? <span class="icon">+</span></button>
+                    <div class="accordion-content">
+                        <p>El precio promocional actual cubre el **Pack Completo** de materias del año seleccionado,
+                            incluyendo resúmenes, guías de casos prácticos y modelos de exámenes.</p>
+                    </div>
+                </div>
+                <div class="accordion-item"><button class="accordion-header" onclick="toggleAccordion(this)">¿Puedo
+                        imprimir los resúmenes? <span class="icon">+</span></button>
+                    <div class="accordion-content">
+                        <p>Â¡Claro ! Los archivos están en formato PDF de alta calidad, optimizados tanto para lectura
+                            digital como para impresión, con márgenes adecuados para encuadernar.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="footer-derecharg">
+        <div class="container footer-grid">
+            <div class="footer-column"><img src="logo_derecharg.png" alt="Derecharg Logo" class="logo-footer">
+                <p class="footer-desc">Transformamos la complejidad jurídica en síntesis estratégica. Tu aprobado
+                    empieza acá.</p>
+            </div>
+            <div class="footer-column">
+                <h4>Pagos Seguros</h4>
+                <div class="payment-methods"><img
+                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/320px-Mastercard-logo.svg.png"
+                        alt="Mastercard"><img
+                        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDIiIGhlaWdodD0iMzAiPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiMwMDUyOUEiIHJ4PSI0Ii8+PHRleHQgeD0iNTEiIHk9IjIwIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTMiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+Q3VlbnRhIEROSTwvdGV4dD48L3N2Zz4="
+                        alt="Cuenta DNI"></div>
+                <p class="secure-text">🔒 Conexión encriptada SSL</p>
+            </div>
+            <div class="footer-column">
+                <h4>Contacto</h4><a href="mailto:soporte@derecharg.com.ar"
+                    class="footer-link">soporte@derecharg.com.ar</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>Â© 2026 <strong>Derecharg</strong>. Todos los derechos reservados.</p>
+                <p class="disclaimer">Propiedad Intelectual: Queda prohibida la reproducción total o parcial del
+                    contenido sin autorización. El uso es personal e intransferible.</p>
+            </div>
+        </div>
+    </footer><a
+        href="https://wa.me/54911XXXXXXXX?text=%C2%A1Hola%20Lautaro!%20Tengo%20una%20duda%20sobre%20los%20res%C3%BAmenes%20de%20Derecharg."
+        class="whatsapp-float" target="_blank"><svg viewBox="0 0 24 24" width="30" height="30">
+            <path fill="currentColor"
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.82 9.82 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.81 11.81 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.88 11.88 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.82 11.82 0 0 0-3.48-8.413Z" />
+        </svg></a>
+    <!-- Redes Sociales Flotantes -->
+    <div class="social-floating"><a href="#" class="social-btn btn-tiktok" title="TikTok">
+            <!-- SVG TikTok --><svg viewBox="0 0 24 24">
+                <path
+                    d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.16-3.44-3.35-3.46-5.7-.02-1.29.28-2.58.89-3.71.94-1.74 2.67-2.91 4.59-3.23 1.23-.2 2.47-.13 3.66.28.01 1.39.01 2.78.02 4.17-1.18-.32-2.52-.16-3.56.59-1.24.87-1.74 2.59-1.17 3.98.54 1.3 1.93 2.12 3.32 2.06 1.44-.05 2.67-1.04 3.08-2.42.18-.63.22-1.29.23-1.95.02-5.5.01-11 .02-16.51.02-.15.01-.3.02-.45Z" />
+            </svg>
+        </a><a href="#" class="social-btn btn-instagram" title="Instagram">
+            <!-- SVG Instagram --><svg viewBox="0 0 24 24">
+                <path
+                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z" />
+            </svg>
+        </a><a href="#" class="social-btn btn-youtube" title="YouTube">
+            <!-- SVG YouTube --><svg viewBox="0 0 24 24">
+                <path
+                    d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.5 12 3.5 12 3.5s-7.505 0-9.377.55a3.016 3.016 0 0 0-2.122 2.136C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.55 9.376.55 9.376.55s7.505 0 9.377-.55a3.016 3.016 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+            </svg>
+        </a></div>
+    <!-- Modal para Google Drive -->
+    <div id="modal-drive" class="modal-overlay">
+        <div class="modal-contenedor"><span class="cerrar-modal" onclick="cerrarModalDrive()">&times;
+            </span><iframe id="iframe-drive" src="" width="100%" height="500" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+    <!-- Modal Info de Materia -->
+    <div id="modal-info" class="modal-overlay">
+        <div class="modal-contenedor modal-info-content"><span class="cerrar-modal" onclick="cerrarModalInfo()">&times;
+            </span>
+            <div class="card-derecho">
+                <h3 style="color: white;">⚖️  Guía de Cursada: Derecho Administrativo | Derecharg</h3>
+                <div class="content-derecharg scrollable-content">
+                    <p class="intro-derecharg">Â¡Bienvenido a Derecharg ! Has dado el paso más eficiente para
+                        dominar una de las materias más complejas de la carrera. El Derecho Administrativo
+                        no es solo teoría;
+                        es entender cómo funciona el Estado y cómo defender al administrado. Aquí no
+                        estudiamos para "zafar",
+                        estudiamos para entender la técnica jurídica.</p>
+                    <div class="section-derecharg">
+                        <h4>1. ¿Por qué elegir este curso?</h4>
+                        <p>El programa de Derecho Administrativo suele ser inabarcable y la bibliografía
+                            clásica (Cassagne, Balbín, Diez) es extremadamente extensa. Derecharg nace de la
+                            necesidad de síntesis estratégica.</p>
+                        <ul>
+                            <li><strong>Enfoque en el CCCN y Ley 19.549:</strong>Olvidate de apuntes
+                                desactualizados. Nuestros materiales integran las últimas reformas y la
+                                jurisprudencia reciente de la CSJN.</li>
+                            <li><strong>Optimización del Tiempo:</strong>Reducimos las 800 páginas de manual
+                                en resúmenes técnicos de alta densidad informativa. Lo que tardarías un mes
+                                en leer,
+                                lo procesás en una semana.</li>
+                            <li><strong>Lenguaje de Examen:</strong>El contenido está redactado con la
+                                terminología técnica que los titulares de cátedra exigen en los finales.
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="section-derecharg">
+                        <h4>2. ¿Qué es lo que vas a aprender?</h4>
+                        <p>El curso está estructurado para que domines los ejes troncales de la materia:</p>
+                        <ul>
+                            <li><strong>Teoría del Acto Administrativo:</strong>Elementos,
+                                vicios y nulidades (la base de todo examen).</li>
+                            <li><strong>Procedimiento y Proceso:</strong>Agotar la vía administrativa,
+                                plazos de caducidad y recursos.</li>
+                            <li><strong>Responsabilidad del Estado:</strong>Análisis profundo de la Ley
+                                26.944 y la falta de servicio.</li>
+                            <li><strong>Contratos Administrativos:</strong>Licitación pública,
+                                ejecución y prerrogativas de poder público (Ius Variandi).</li>
+                            <li><strong>Servicios Públicos y Dominio Público:</strong>Régimen jurídico y
+                                protección de bienes del Estado.</li>
+                        </ul>
+                    </div>
+                    <div class="section-derecharg">
+                        <h4>3. ¿Qué incluye y Formas de Pago?</h4>
+                        <p>El pack completo de la materia incluye:</p>
+                        <ul>
+                            <li><strong>Resúmenes Técnicos:</strong>Documentos PDF por unidad temática,
+                                optimizados para lectura rápida.</li>
+                            <li><strong>Cuadros de Plazos Procesales:</strong>Una guía visual para no fallar
+                                en los tiempos del procedimiento administrativo.</li>
+                            <li><strong>Actualizaciones Mensuales:</strong>Como el derecho nunca termina,
+                                si sale un fallo relevante (ej. en materia de empleo público o contratos),
+                                lo subimos a la carpeta sin costo adicional.</li>
+                        </ul>
+                    </div>
+                    <div class="payment-container">
+                        <div class="price-tag"><span class="label">Inversión Total:</span><span
+                                class="amount">$24.499</span></div>
+                        <div class="payment-options"><a href="https://mpago.la/1CubSAX" target="_blank"
+                                class="btn-checkout mp-brand"
+                                onclick="registrarIntentoPago('Mercado Pago'); trackPurchaseAttempt('Mercado Pago', 'Administrativo'); setTimeout(() => window.location.href='gracias.html', 3000);">Comprar
+                                Apuntes </a>
+                            <p class="divider">o también</p><button class="btn-checkout transfer-brand"
+                                onclick="mostrarDatosTransferencia()">Transferencia Bancaria </button>
+                        </div>
+                        <p class="secure-notice">🔒 Pago procesado de forma segura por Mercado Pago</p>
+                    </div>
+                </div>
+                <div class="action-footer"><a href="#"
+                        onclick="abrirModalDrive('1tk7AZsQe4WxcV4TOkT8seAKawHTsw9qt'); return false;"
+                        class="btn-derecharg">Ver Previsualización del Contenido</a></div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Info de Materia: Societario -->
+    <div id="modal-info-societario" class="modal-overlay">
+        <div class="modal-contenedor modal-info-content"><span class="cerrar-modal"
+                onclick="cerrarModalInfoSocietario()">&times;
+            </span>
+            <div class="card-derecho">
+                <h3 style="color: white;">🏢 Guía de Cursada: Derecho Societario | Derecharg</h3>
+                <div class="content-derecharg scrollable-content">
+                    <p class="intro-derecharg">¡Bienvenido a Derecharg ! Has ingresado al núcleo del
+                        derecho patrimonial. Derecho Societario no es solo estudiar tipos de empresas;
+                        es entender la estructura jurídica que mueve la economía. En esta materia,
+                        la precisión técnica es la diferencia entre una inscripción exitosa y un rechazo
+                        registral.</p>
+                    <div class="section-derecharg">
+                        <h4>1. ¿Por qué elegir este curso?</h4>
+                        <p>Derecho Societario suele ser una materia "filtro" debido a la densidad de la
+                            Ley 19.550 y las resoluciones de organismos como la IGJ o la DPPJ. En
+                            Derecharg eliminamos el ruido:</p>
+                        <ul>
+                            <li><strong>Enfoque en la Ley 19.550 y Reformas:</strong>Analizamos desde la
+                                clásica SA hasta la dinámica de las SAS,
+                                incluyendo las últimas posturas doctrinarias sobre la personalidad
+                                jurídica.</li>
+                            <li><strong>Síntesis Registral:</strong>No solo te damos la teoría;
+                                te explicamos qué es lo que realmente importa para aprobar el examen y
+                                para la práctica profesional (inscripciones, edictos y asambleas).</li>
+                            <li><strong>Terminología de Alta Gama:</strong>Preparamos tu léxico para que
+                                hables con propiedad sobre affectio societatis,
+                                tipicidad,
+                                inoponibilidad de la personalidad y responsabilidad de los
+                                administradores.</li>
+                        </ul>
+                    </div>
+                    <div class="section-derecharg">
+                        <h4>2. ¿Qué es lo que vas a aprender?</h4>
+                        <p>El curso está diseñado para que domines los pilares que todo abogado
+                            comercial debe conocer: </p>
+                        <ul>
+                            <li><strong>Teoría General de las Sociedades:</strong>Elementos del contrato
+                                social,
+                                nulidades y la sociedad unipersonal.</li>
+                            <li><strong>Tipicidad Societaria:</strong>Diferencias críticas entre SRL y
+                                SA (órganos de gobierno, administración y fiscalización).</li>
+                            <li><strong>Dinámica Societaria:</strong>Aumentos de capital,
+                                transferencia de cuotas y el régimen de asambleas.</li>
+                            <li><strong>Crisis y Reorganización:</strong>Transformación,
+                                fusión,
+                                escisión y el proceso de disolución y liquidación.</li>
+                            <li><strong>Sociedades Extranjeras y del Estado:</strong>Marco legal y
+                                actuación en territorio nacional.</li>
+                        </ul>
+                    </div>
+                    <div class="section-derecharg">
+                        <h4>3. ¿Qué incluye y Formas de Pago?</h4>
+                        <p>El pack estratégico de Societario incluye:</p>
+                        <ul>
+                            <li><strong>Resúmenes Ejecutivos:</strong>La Ley 19.550 procesada unidad por
+                                unidad para una comprensión veloz.</li>
+                            <li><strong>Modelos de Estatutos:</strong>Documentos base para que veas cómo
+                                la teoría se plasma en la realidad contractual.</li>
+                            <li><strong>Actualizaciones Mensuales:</strong>Como el derecho es una
+                                ciencia viva,
+                                incluimos cualquier reforma normativa o fallo relevante de la Cámara
+                                Comercial de forma inmediata.</li>
+                        </ul>
+                    </div>
+                    <div class="payment-section">
+                        <h4>Inversión y Formas de Pago</h4>
+                        <p>Buscamos que el estudiante de Argentina tenga acceso a material de élite sin
+                            complicaciones: </p>
+                        <div class="payment-container">
+                            <div class="price-tag"><span class="label">Inversión Total:</span><span
+                                    class="amount">$24.499</span></div>
+                            <div class="payment-options"><a href="https://mpago.la/1CubSAX" target="_blank"
+                                    class="btn-checkout mp-brand"
+                                    onclick="registrarIntentoPago('Mercado Pago'); setTimeout(() => window.location.href='gracias.html', 3000);">Comprar
+                                    Apuntes </a>
+                                <p class="divider">o también</p><button class="btn-checkout transfer-brand"
+                                    onclick="mostrarDatosTransferencia()">Transferencia Bancaria
+                                </button>
+                            </div>
+                            <p class="secure-notice">🔒 Pago procesado de forma segura por Mercado Pago
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="action-footer"><a href="#"
+                        onclick="abrirModalDrive('AQUI_IRIA_EL_ID_DE_SOCIETARIO'); return false;"
+                        class="btn-derecharg">Ver Previsualización del Contenido</a></div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Info de Materia: Derechos Reales -->
+    <div id="modal-info-reales" class="modal-overlay">
+        <div class="modal-contenedor modal-info-content"><span class="cerrar-modal"
+                onclick="cerrarModalInfoReales()">&times;
+            </span>
+            <div class="card-derecho">
+                <h3 style="color: white;">🏠 Guía de Cursada: Derechos Reales | Derecharg</h3>
+                <div class="content-derecharg scrollable-content">
+                    <p class="intro-derecharg">¡Bienvenido a Derecharg ! Estás por ingresar a la
+                        materia más estructural del derecho civil. Derechos Reales no se trata solo
+                        de "cosas",
+                        sino del poder jurídico que las personas ejercen sobre ellas. En esta
+                        cátedra,
+                        la clave no es memorizar,
+                        sino entender el Orden Público que rige cada relación.</p>
+                    <div class="section-derecharg">
+                        <h4>1. ¿Por qué elegir este curso?</h4>
+                        <p>Derechos Reales es una materia de conceptos abstractos y estructuras
+                            rígidas (Numerus Clausus). Estudiar de manuales de 1000 páginas sin guía
+                            es el camino más directo a la confusión. En Derecharg te ofrecemos:</p>
+                        <ul>
+                            <li><strong>Eje en el CCCN:</strong>Todo el material está estrictamente
+                                ajustado al Código vigente,
+                                eliminando teorías obsoletas del viejo Código de Vélez que ya no se
+                                toman.</li>
+                            <li><strong>Claridad en Título y Modo:</strong>Desglosamos la teoría de
+                                la adquisición de manera que puedas explicarla en un final sin
+                                titubear.</li>
+                            <li><strong>Enfoque en la Publicidad Registral:</strong>Te explicamos
+                                cómo funciona la Ley 17.801 en la práctica,
+                                algo que los libros suelen complicar innecesariamente.</li>
+                        </ul>
+                    </div>
+                    <div class="section-derecharg">
+                        <h4>2. ¿Qué es lo que vas a aprender?</h4>
+                        <p>El curso te garantiza el dominio de los institutos que definen la
+                            materia:</p>
+                        <ul>
+                            <li><strong>Teoría General:</strong>Diferencia entre derechos reales y
+                                personales,
+                                el sistema de numerus clausus y la convalidación.</li>
+                            <li><strong>Posesión y Tenencia:</strong>Las relaciones de poder,
+                                sus defensas (interdictos y acciones posesorias) y la importancia
+                                del corpus y el animus.</li>
+                            <li><strong>Derecho de Propiedad (Dominio):</strong>Caracteres,
+                                límites,
+                                modos de adquisición y la Propiedad Horizontal (el eje de la vida
+                                urbana actual).</li>
+                            <li><strong>Derechos sobre Cosa Ajena:</strong>Usufructo,
+                                Uso,
+                                Habitación y las Servidumbres.</li>
+                            <li><strong>Garantías Reales:</strong>Hipoteca,
+                                Prenda y Anticresis bajo la nueva normativa.</li>
+                            <li><strong>Acciones Reales:</strong>Reivindicatoria,
+                                Confesoria,
+                                Negatoria y de Deslinde. </li>
+                        </ul>
+                    </div>
+                    <div class="section-derecharg">
+                        <h4>3. ¿Qué incluye y Formas de Pago?</h4>
+                        <p>El arsenal de Derechos Reales incluye:</p>
+                        <ul>
+                            <li><strong>Resúmenes Técnicos de Alta Densidad:</strong>Cada artículo
+                                clave del CCCN analizado y sintetizado para que no pierdas tiempo.
+                            </li>
+                            <li><strong>Guía de Acciones Reales:</strong>Un cuadro comparativo para
+                                saber qué acción usar según la lesión al derecho.</li>
+                            <li><strong>Actualizaciones Jurisprudenciales:</strong>Como el
+                                aprendizaje es constante,
+                                subimos fallos recientes sobre usucapión y propiedad horizontal para
+                                que tu examen sea de excelencia.</li>
+                        </ul>
+                    </div>
+                    <div class="payment-container">
+                        <div class="price-tag"><span class="label">Inversión Total:</span><span
+                                class="amount">$24.499</span></div>
+                        <div class="payment-options"><a href="https://mpago.la/1CubSAX" target="_blank"
+                                class="btn-checkout mp-brand"
+                                onclick="registrarIntentoPago('Mercado Pago'); setTimeout(() => window.location.href='gracias.html', 3000);">Comprar
+                                Apuntes </a>
+                            <p class="divider">o también</p><button class="btn-checkout transfer-brand"
+                                onclick="mostrarDatosTransferencia()">Transferencia Bancaria
+                            </button>
+                        </div>
+                        <p class="secure-notice">🔒 Pago procesado de forma segura por Mercado Pago
+                        </p>
+                    </div>
+                </div>
+                <div class="action-footer"><a href="#"
+                        onclick="abrirModalDrive('AQUI_IRIA_EL_ID_DE_REALES'); return false;" class="btn-derecharg">Ver
+                        Previsualización del Contenido</a></div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Auth (Ingreso / Registro) -->
+    <div id="modal-auth" class="modal-overlay">
+        <div class="modal-contenedor auth-box" style="max-width: 400px; padding: 40px; align-items: stretch;"><span
+                class="cerrar-modal" onclick="cerrarModalAuth()">&times;
+            </span>
+            <h3
+                style="text-align: center; color: #003366; font-family: 'Playfair Display', serif; margin-bottom: 5px; font-size: 1.5rem;">
+                Bienvenido a Derecharg</h3>
+            <p style="text-align: center; color: #4a5568; font-size: 0.9em; margin-bottom: 20px;">
+                Ingresa para acceder a tus recursos y puntos estratégicos.</p>
+            <form
+                onsubmit="event.preventDefault(); document.getElementById('logged-out-nav').style.display='none'; document.getElementById('logged-in-nav').style.display='block'; cerrarModalAuth();">
+                <input type="email" placeholder="Correo electrónico" required><input type="password"
+                    placeholder="Contraseña" required><button type="submit" class="cta-button"
+                    style="width: 100%; border: none; font-family: 'Inter', sans-serif; font-size: 1rem; cursor: pointer; margin-top: 10px;">Ingresar
+                    / Registrarme</button>
+            </form>
+        </div>
+    </div>
+    <!-- Modal de Estudio -->
+    <div id="modal-estudio" class="modal-overlay">
+        <div class="modal-contenedor dashboard-estudiante"><span class="cerrar-modal" onclick="cerrarEstudio()">&times;
+            </span>
+            <div class="dashboard-header">
+                <h3>Derecho Administrativo: Unidad 1</h3>
+                <div class="tabs-estudio"><button class="tab-btn active" onclick="cambiarTab('lectura')">📖
+                        Lectura</button><button class="tab-btn" onclick="cambiarTab('video')">📥 Video
+                        Clase</button></div>
+            </div>
+            <div class="dashboard-body">
+                <div id="tab-lectura" class="tab-content active"><iframe
+                        src="https://docs.google.com/viewer?url=TU_URL_DEL_PDF&embedded=true" width="100%"
+                        height="600px" frameborder="0"></iframe></div>
+                <div id="tab-video" class="tab-content">
+                    <div class="video-responsive"><iframe width="560" height="315"
+                            src="https://www.youtube.com/embed/ID_DE_TU_VIDEO" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <p class="video-desc" style="padding: 15px; margin: 0; color: #333;">
+                        Análisis del fallo "Madorrán" y su impacto en la estabilidad del
+                        empleado público.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>function cerrarEstudio() {
+            document.getElementById('modal-estudio').style.display = 'none';
+        }
+
+        function cambiarTab(tabName) {
+            var tabs = document.getElementsByClassName('tab-content');
+
+            for (var i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove('active');
+            }
+
+            var btns = document.getElementsByClassName('tab-btn');
+
+            for (var i = 0; i < btns.length; i++) {
+                btns[i].classList.remove('active');
+            }
+
+            document.getElementById('tab-' + tabName).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        function abrirModalAuth() {
+            document.getElementById('modal-auth').style.display = "flex";
+        }
+
+        function cerrarModalAuth() {
+            document.getElementById('modal-auth').style.display = "none";
+        }
+
+        function abrirModalInfo() {
+            document.getElementById('modal-info').style.display = "flex";
+        }
+
+        function cerrarModalInfo() {
+            document.getElementById('modal-info').style.display = "none";
+        }
+
+        function abrirModalInfoSocietario() {
+            document.getElementById('modal-info-societario').style.display = "flex";
+        }
+
+        function cerrarModalInfoSocietario() {
+            document.getElementById('modal-info-societario').style.display = "none";
+        }
+
+        function abrirModalInfoReales() {
+            document.getElementById('modal-info-reales').style.display = "flex";
+        }
+
+        function cerrarModalInfoReales() {
+            document.getElementById('modal-info-reales').style.display = "none";
+        }
+
+        function abrirModalDrive(folderId) {
+            cerrarModalInfo();
+            cerrarModalInfoSocietario();
+            cerrarModalInfoReales();
+            document.getElementById('iframe-drive').src = "https://drive.google.com/embeddedfolderview?id=" + folderId + "#grid";
+            document.getElementById('modal-drive').style.display = "flex";
+        }
+
+        function cerrarModalDrive() {
+            document.getElementById('modal-drive').style.display = "none";
+            document.getElementById('iframe-drive').src = "";
+        }
+
+        /* Funciones extras y modales agregados */
+        window.onclick = function (event) {
+            var modalDrive = document.getElementById('modal-drive');
+            var modalInfo = document.getElementById('modal-info');
+            var modalInfoSocietario = document.getElementById('modal-info-societario');
+            var modalInfoReales = document.getElementById('modal-info-reales');
+            var modalAuth = document.getElementById('modal-auth');
+
+            if (event.target == modalDrive) {
+                cerrarModalDrive();
+            }
+
+            if (event.target == modalInfo) {
+                cerrarModalInfo();
+            }
+
+            if (event.target == modalInfoSocietario) {
+                cerrarModalInfoSocietario();
+            }
+
+            if (event.target == modalInfoReales) {
+                cerrarModalInfoReales();
+            }
+
+            if (event.target == modalAuth) {
+                cerrarModalAuth();
+            }
+
+            if (event.target == document.getElementById('modal-transferencia')) {
+                cerrarModalTransferencia();
+            }
+
+            if (event.target == document.getElementById('modal-estudio')) {
+                cerrarEstudio();
+            }
+        }
+
+        // Funciones de pago y seguimiento
+        function registrarIntentoPago(metodo) {
+            console.log("El usuario eligió: " + metodo);
+            // Aquí se simula la obtención de puntos (si existe la función)
+            let elPoints = document.getElementById('user-points-display');
+
+            if (elPoints) {
+                let p = parseInt(elPoints.innerText);
+                elPoints.innerText = p + 10;
+            }
+        }
+
+        function mostrarDatosTransferencia() {
+            cerrarModalInfo();
+            cerrarModalInfoSocietario();
+            cerrarModalInfoReales();
+            document.getElementById('modal-transferencia').style.display = "flex";
+        }
+
+        function cerrarModalTransferencia() {
+            document.getElementById('modal-transferencia').style.display = "none";
+        }
+
+        function copiarTexto(id) {
+            var texto = document.getElementById(id).innerText;
+
+            navigator.clipboard.writeText(texto).then(function () {
+                alert("Copiado al portapapeles: " + texto);
+            });
+        }
+
+        // --- Lógica del Scroll para el Navbar ---
+        let lastScrollTop = 0;
+        const navbar = document.querySelector('.navbar-derecharg');
+
+        window.addEventListener('scroll', function () {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                // El usuario baja: ocultamos el logo y el menú
+                navbar.classList.add('navbar-hidden');
+            }
+
+            else {
+                // El usuario sube: mostramos el logo de nuevo
+                navbar.classList.remove('navbar-hidden');
+            }
+
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // Para navegadores móviles
+        }
+
+            , false);
+
+        // --- Lógica del Acordeón ---
+        function toggleAccordion(element) {
+            const item = element.parentElement;
+
+            // Cerrar otros items abiertos (opcional)
+            document.querySelectorAll('.accordion-item').forEach(i => {
+                if (i !== item) i.classList.remove('active');
+            });
+
+            // Alternar el item actual
+            item.classList.toggle('active');
+        }
+
+    </script>
+    <!-- Modal de Transferencia -->
+    <div id="modal-transferencia" class="modal-overlay"
+        style="display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); align-items: center; justify-content: center;">
+        <div class="modal-contenedor"
+            style="background: white; width: 90%; max-width: 500px; border-radius: 15px; overflow: hidden; position: relative; font-family: 'Inter', sans-serif;">
+            <span class="cerrar-modal" onclick="cerrarModalTransferencia()"
+                style="position: absolute; right: 20px; top: 15px; font-size: 28px; cursor: pointer; color: white; z-index: 10;">&times;
+            </span>
+            <div class="transfer-header"
+                style="background: #003366; color: white; padding: 30px 20px; text-align: center;">
+                <h3 style="margin: 0; font-size: 1.5em;">ðŸ¦ Pago por Transferencia</h3>
+                <p style="margin: 10px 0 0; opacity: 0.9; font-size: 0.9em;">Banco
+                    Provincia de Buenos Aires</p>
+            </div>
+            <div class="transfer-body" style="padding: 25px;">
+                <div class="dato-bancario"
+                    style="display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid #eee;">
+                    <div style="display: flex; flex-direction: column;"><span
+                            style="color: #888; font-size: 0.8em; text-transform: uppercase;">CBU</span><strong
+                            id="cbu-copy"
+                            style="color: #003366; font-size: 1.1em; letter-spacing: 0.5px;">0140370903682451411250</strong>
+                    </div><button class="btn-copy" onclick="copiarTexto('cbu-copy')"
+                        style="background: #eef2f7; border: 1px solid #003366; color: #003366; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: 600;">Copiar</button>
+                </div>
+                <div class="dato-bancario"
+                    style="display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid #eee;">
+                    <div style="display: flex; flex-direction: column;"><span
+                            style="color: #888; font-size: 0.8em; text-transform: uppercase;">Titular</span><strong
+                            style="color: #003366; font-size: 1.1em;">Lautaro
+                            Pascual</strong></div>
+                </div>
+                <div class="monto-final"
+                    style="margin-top: 25px; background: #f0f4f8; padding: 20px; text-align: center; border-radius: 10px; border: 1px solid #d0dae5;">
+                    <span style="display: block; color: #666; font-size: 0.9em;">Total a
+                        transferir:</span><strong
+                        style="color: #003366; font-size: 2em; display: block; margin-top: 5px;">$24.499</strong>
+                </div>
+            </div>
+            <div class="transfer-footer" style="padding: 0 25px 30px;">
+                <p style="font-size: 0.85em; color: #555; text-align: center; line-height: 1.4;">
+                    âš ï¸ <strong>Paso final:</strong>Una vez hecha la transferencia,
+                    enviÃ¡ el comprobante para recibir tu acceso de inmediato.</p><a
+                    href="https://wa.me/54911XXXXXXXX?text=%C2%A1Hola%20Lautaro!%20Acabo%20de%20transferir%20$24.499%20para%20el%20acceso%20a%20Derecharg.%20Adjunto%20comprobante."
+                    target="_blank"
+                    style="display: block; background: #25D366; color: white; text-align: center; padding: 16px; text-decoration: none; border-radius: 10px; font-weight: bold; margin-top: 15px; box-shadow: 0 4px 10px rgba(37,211,102,0.3);">Confirmar
+                    por WhatsApp </a>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Manejo del formulario Lead Magnet
+        document.getElementById('lead-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Referencias
+            const nameInput = document.getElementById('lead-name');
+            const emailInput = document.getElementById('lead-email');
+            const nameError = document.getElementById('name-error');
+            const emailError = document.getElementById('email-error');
+            const btn = document.getElementById('btn-submit-lead');
+            const btnText = btn.querySelector('.btn-text');
+            const spinner = document.getElementById('loader-spinner');
+
+            let isValid = true;
+
+            // Validación de Nombre
+            if (nameInput.value.trim().length < 3) {
+                nameInput.classList.add('input-error');
+                nameError.style.display = 'block';
+                isValid = false;
+            } else {
+                nameInput.classList.remove('input-error');
+                nameError.style.display = 'none';
+            }
+
+            // Validación de Email (Regex profesional)
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(emailInput.value)) {
+                emailInput.classList.add('input-error');
+                emailError.style.display = 'block';
+                isValid = false;
+            } else {
+                emailInput.classList.remove('input-error');
+                emailError.style.display = 'none';
+            }
+
+            if (isValid) {
+                // --- INICIO ESTADO DE CARGA ---
+                btn.disabled = true;
+                btnText.style.display = 'none';
+                spinner.style.display = 'block';
+
+                // Simulamos el envío a una base de datos (1.5 segundos)
+                setTimeout(() => {
+                    // Registro en Analytics
+                    if (typeof gtag === 'function') {
+                        gtag('event', 'lead_captured', { 'method': 'form' });
+                    }
+
+                    // Éxito: Feedback final al usuario
+                    btnText.innerText = "¡Enviado con éxito!";
+                    btnText.style.display = 'block';
+                    spinner.style.display = 'none';
+                    btn.style.backgroundColor = "#25D366"; // Verde éxito
+
+                    setTimeout(() => {
+                        window.location.href = "https://drive.google.com/drive/folders/18Ruhbz0BuOGf6l-e26Wd3ogc8JHpPHGL";
+                    }, 1000);
+                }, 1500);
+            }
+        });
+    </script>
+</body>
+
+</html>

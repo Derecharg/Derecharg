@@ -664,7 +664,8 @@
                     </div>
                 </div>
                 <div class="action-footer"><a href="#"
-                        onclick="abrirModalDrive('AQUI_IRIA_EL_ID_DE_REALES'); return false;" class="btn-derecharg">Ver
+                        onclick="abrirVisorEstudio('Derechos Reales', '1I2k27Vxxx4UR5UDGy1u6hU5412ZE0R3-'); return false;"
+                        class="btn-derecharg">Ver
                         Previsualización del Contenido</a></div>
             </div>
         </div>
@@ -693,15 +694,14 @@
         <div class="modal-contenedor dashboard-estudiante"><span class="cerrar-modal" onclick="cerrarEstudio()">&times;
             </span>
             <div class="dashboard-header">
-                <h3>Derecho Administrativo: Unidad 1</h3>
+                <h3 id="visor-titulo-materia">Derecho Administrativo: Unidad 1</h3>
                 <div class="tabs-estudio"><button class="tab-btn active" onclick="cambiarTab('lectura')">📖
                         Lectura</button><button class="tab-btn" onclick="cambiarTab('video')">📥 Video
                         Clase</button></div>
             </div>
             <div class="dashboard-body">
-                <div id="tab-lectura" class="tab-content active"><iframe
-                        src="https://docs.google.com/viewer?url=TU_URL_DEL_PDF&embedded=true" width="100%"
-                        height="600px" frameborder="0"></iframe></div>
+                <div id="tab-lectura" class="tab-content active"><iframe id="visor-iframe-pdf" src="" width="100%"
+                        height="600px" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
                 <div id="tab-video" class="tab-content">
                     <div class="video-responsive"><iframe width="560" height="315"
                             src="https://www.youtube.com/embed/ID_DE_TU_VIDEO" frameborder="0" allowfullscreen></iframe>
@@ -778,6 +778,31 @@
             document.getElementById('modal-drive').style.display = "none";
             document.getElementById('iframe-drive').src = "";
         }
+
+        // Nueva función dinámica para el Visor de Estudio
+        function abrirVisorEstudio(materiaNombre, drivePdfId, youtubeVideoId) {
+            // Cerramos todos los otros modales activos de ventas
+            cerrarModalInfo();
+            cerrarModalInfoSocietario();
+            cerrarModalInfoReales();
+
+            // Cambiar titulo
+            document.getElementById('visor-titulo-materia').innerText = materiaNombre;
+
+            // Cargar el PDF de Google Drive usando el endpoint /preview (el más rapido y seguro)
+            if (drivePdfId) {
+                document.getElementById('visor-iframe-pdf').src = "https://drive.google.com/file/d/" + drivePdfId + "/preview";
+            } else {
+                document.getElementById('visor-iframe-pdf').src = "";
+            }
+
+            // Cambiar la tab a lectura por defecto
+            cambiarTab('lectura');
+
+            // Hacemos visible el modal de estudio
+            document.getElementById('modal-estudio').style.display = "flex";
+        }
+
 
         /* Funciones extras y modales agregados */
         window.onclick = function (event) {

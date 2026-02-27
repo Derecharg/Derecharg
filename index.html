@@ -975,23 +975,46 @@
                 btnText.style.display = 'none';
                 spinner.style.display = 'block';
 
-                // Simulamos el envío a una base de datos (1.5 segundos)
-                setTimeout(() => {
-                    // Registro en Analytics
-                    if (typeof gtag === 'function') {
-                        gtag('event', 'lead_captured', { 'method': 'form' });
-                    }
+                // Web3Forms Integration
+                const formData = new FormData();
+                formData.append("access_key", "e6fa74e2-ced3-4962-a7e0-658219e65ddd");
+                formData.append("subject", "¡Nuevo Lead de Unidad 1! 📥");
+                formData.append("name", nameInput.value.trim());
+                formData.append("email", emailInput.value.trim());
+                formData.append("from_name", "Derecharg Landing Page");
 
-                    // Éxito: Feedback final al usuario
-                    btnText.innerText = "¡Enviado con éxito!";
-                    btnText.style.display = 'block';
-                    spinner.style.display = 'none';
-                    btn.style.backgroundColor = "#25D366"; // Verde éxito
+                fetch("https://api.web3forms.com/submit", {
+                    method: "POST",
+                    body: formData
+                })
+                    .then(async (response) => {
+                        if (response.status == 200) {
+                            // Registro en Analytics
+                            if (typeof gtag === 'function') {
+                                gtag('event', 'lead_captured', { 'method': 'form' });
+                            }
 
-                    setTimeout(() => {
-                        window.location.href = "https://drive.google.com/drive/folders/18Ruhbz0BuOGf6l-e26Wd3ogc8JHpPHGL";
-                    }, 1000);
-                }, 1500);
+                            // Éxito: Feedback final al usuario
+                            btnText.innerText = "¡Enviado con éxito! ✅";
+                            btnText.style.display = 'block';
+                            spinner.style.display = 'none';
+                            btn.style.backgroundColor = "#25D366"; // Verde éxito
+
+                            setTimeout(() => {
+                                window.location.href = "https://drive.google.com/drive/folders/18Ruhbz0BuOGf6l-e26Wd3ogc8JHpPHGL";
+                            }, 1000);
+                        } else {
+                            throw new Error('Server error');
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error al enviar el formulario:", error);
+                        spinner.style.display = 'none';
+                        btnText.style.display = 'block';
+                        btnText.innerHTML = 'Error de conexión. Intenta de nuevo ❌';
+                        btn.disabled = false;
+                        btn.style.backgroundColor = '#e53e3e';
+                    });
             }
         });
     </script>

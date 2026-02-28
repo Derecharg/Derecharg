@@ -110,7 +110,8 @@
                     onkeyup="filtrarMaterias()" onfocus="scrollToMaterias()">
             </div>
 
-            <a href="#materias" class="cta-button">Ver Catálogo Completo</a>
+            <a href="#" onclick="event.preventDefault(); document.getElementById('buscador-materias').focus();"
+                class="cta-button">Ver Catálogo Completo</a>
         </div>
     </header>
     <section class="benefits">

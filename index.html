@@ -1017,12 +1017,21 @@
             }
 
             if (isValid) {
-                // --- INICIO ESTADO DE CARGA ---
-                btn.disabled = true;
-                btnText.style.display = 'none';
-                spinner.style.display = 'block';
+                // --- INICIO ESTADO DE ÉXITO INMEDIATO ---
+                btnText.innerText = "¡Enviado con éxito! ✅";
+                btn.style.backgroundColor = "#25D366"; // Verde éxito
 
-                // Web3Forms Integration
+                // Ejecuta la función del catálogo llamando al PDF
+                abrirVisorEstudio('Introducción al Derecho', '1BrXUDjKw05-pWLOIGJdmb3eGBgxX8hy4', '');
+
+                // Restauramos el botón rápidamente en caso de que cierre el modal
+                setTimeout(() => {
+                    btnText.innerText = "📥 Obtener Introducción al Derecho gratis";
+                    btn.style.backgroundColor = "";
+                    btn.disabled = false;
+                }, 2000);
+
+                // --- ENVÍO DE DATOS EN SEGUNDO PLANO ---
                 const formData = new FormData();
                 formData.append("access_key", "e6fa74e2-ced3-4962-a7e0-658219e65ddd");
                 formData.append("subject", "¡Nuevo Lead de Introducción al Derecho! 📥");
@@ -1033,42 +1042,11 @@
                 fetch("https://api.web3forms.com/submit", {
                     method: "POST",
                     body: formData
-                })
-                    .then(async (response) => {
-                        if (response.status == 200) {
-                            // Registro en Analytics
-                            if (typeof gtag === 'function') {
-                                gtag('event', 'lead_captured', { 'method': 'form' });
-                            }
-
-                            // Éxito: Feedback final al usuario
-                            btnText.innerText = "¡Enviado con éxito! ✅";
-                            btnText.style.display = 'block';
-                            spinner.style.display = 'none';
-                            btn.style.backgroundColor = "#25D366"; // Verde éxito
-
-                            // En lugar de redirigir, abrimos el Visor de Estudio
-                            setTimeout(() => {
-                                // Devolvemos el botón a la normalidad en caso de que lo vuelva a cerrar
-                                btnText.innerText = "📥 Obtener Introducción al Derecho gratis";
-                                btn.style.backgroundColor = "";
-                                btn.disabled = false;
-
-                                // Ejecuta la función del catálogo llamando al PDF precargado
-                                abrirVisorEstudio('Introducción al Derecho', '1BrXUDjKw05-pWLOIGJdmb3eGBgxX8hy4', '');
-                            }, 1000);
-                        } else {
-                            throw new Error('Server error');
-                        }
-                    })
-                    .catch(error => {
-                        console.error("Error al enviar el formulario:", error);
-                        spinner.style.display = 'none';
-                        btnText.style.display = 'block';
-                        btnText.innerHTML = 'Error de conexión. Intenta de nuevo ❌';
-                        btn.disabled = false;
-                        btn.style.backgroundColor = '#e53e3e';
-                    });
+                }).then(response => {
+                    if (response.status == 200 && typeof gtag === 'function') {
+                        gtag('event', 'lead_captured', { 'method': 'form' });
+                    }
+                }).catch(err => console.log("Silent form error:", err)); // Fallo silencioso, el Lead Magnet igual se entrega
             }
         });
 

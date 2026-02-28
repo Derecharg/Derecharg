@@ -146,7 +146,8 @@
 
             <h3 class="categoria-titulo">Ciclo Básico y Fundamentos</h3>
             <div class="grid-materias">
-                <div class="card-materia" onclick="abrirVisorEstudio('Introducción al Derecho', '', '')">
+                <div class="card-materia"
+                    onclick="abrirVisorEstudio('Introducción al Derecho', '1BrXUDjKw05-pWLOIGJdmb3eGBgxX8hy4', '')">
                     <h3>Introducción al Derecho</h3>
                 </div>
                 <div class="card-materia" onclick="abrirVisorEstudio('Introducción a la Sociología', '', '')">
@@ -1041,8 +1042,8 @@
                                 btn.style.backgroundColor = "";
                                 btn.disabled = false;
 
-                                // Ejecuta la función del catálogo (vacío el PDF id hasta que el usuario lo pase)
-                                abrirVisorEstudio('Introducción al Derecho', '', '');
+                                // Ejecuta la función del catálogo llamando al PDF precargado
+                                abrirVisorEstudio('Introducción al Derecho', '1BrXUDjKw05-pWLOIGJdmb3eGBgxX8hy4', '');
                             }, 1000);
                         } else {
                             throw new Error('Server error');

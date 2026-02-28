@@ -107,7 +107,8 @@
             <div class="search-wrapper" style="margin-top: 25px; margin-bottom: 25px;">
                 <span class="search-icon">🔍</span>
                 <input type="text" id="buscador-materias" placeholder="Buscar materia (Ej: Penal, Romano...)"
-                    onkeyup="filtrarMaterias()" onfocus="scrollToMaterias()">
+                    onkeyup="filtrarMaterias()" autocomplete="off">
+                <ul id="search-results" class="search-results-dropdown"></ul>
             </div>
 
             <a href="#" onclick="event.preventDefault(); document.getElementById('buscador-materias').focus();"
@@ -1056,46 +1057,67 @@
             const input = document.getElementById('buscador-materias');
             const filtro = input.value.toLowerCase();
             const cards = document.querySelectorAll('.card-materia');
+            const dropdown = document.getElementById('search-results');
+
+            dropdown.innerHTML = ''; // Limpiar dropdown
             let tieneResultados = false;
 
-            // Lógica principal de búsqueda (ocultar cards que no coinciden)
+            // Lógica principal de búsqueda
             cards.forEach(card => {
-                const titulo = card.querySelector('h3').textContent.toLowerCase();
-                if (titulo.indexOf(filtro) > -1) {
+                const tituloElement = card.querySelector('h3');
+                const titulo = tituloElement ? tituloElement.textContent : '';
+
+                if (titulo.toLowerCase().indexOf(filtro) > -1) {
                     card.classList.remove('oculto');
                     tieneResultados = true;
+
+                    // Si el usuario escribió algo, poblamos el menú desplegable
+                    if (filtro.length > 0) {
+                        const li = document.createElement('li');
+                        li.textContent = titulo;
+                        li.onclick = function () {
+                            dropdown.style.display = 'none';
+                            input.value = '';
+                            filtrarMaterias(); // Reset visual
+
+                            // Gatillar la ventana Modal correcta
+                            const clickAction = card.getAttribute('onclick');
+                            if (clickAction) {
+                                eval(clickAction);
+                            }
+                        };
+                        dropdown.appendChild(li);
+                    }
                 } else {
                     card.classList.add('oculto');
                 }
             });
 
-            // Lógica secundaria: Ocultar los títulos de las categorías si no hay ninguna materia visible debajo de ellas
+            // Mostrar el dropdown overlay solo si hay texto en la lupa
+            if (filtro.length > 0) {
+                dropdown.style.display = 'block';
+                if (!tieneResultados) {
+                    dropdown.innerHTML = '<li class="no-results" style="padding: 15px 20px; color: #888; text-align: center; cursor: default;">No se encontraron materias</li>';
+                }
+            } else {
+                dropdown.style.display = 'none';
+            }
+
+            // Lógica secundaria: Ocultar los títulos de las categorías si están vacías interactuando con el DOM
             const categorias = document.querySelectorAll('.categoria-titulo');
             categorias.forEach(cat => {
-                // El siguiente hermano en el DOM que es la grilla de materias (.grid-materias)
                 const grilla = cat.nextElementSibling;
                 if (grilla && grilla.classList.contains('grid-materias')) {
-                    // Revisamos cuantas cards visibles quedaron en esta grilla en particular
                     const materiasVisibles = grilla.querySelectorAll('.card-materia:not(.oculto)');
-
                     if (materiasVisibles.length === 0 && filtro !== "") {
-                        // Si en esta categoría no hay coincidencias, ocultamos el título de la categoría también
                         cat.style.display = 'none';
                         grilla.style.display = 'none';
                     } else {
-                        // Si hay coincidencias, nos aseguramos que se muestre normal
                         cat.style.display = 'block';
-                        grilla.style.display = 'grid'; // Grid es su display original
+                        grilla.style.display = 'grid';
                     }
                 }
             });
-        }
-
-        // --- UX DEL BUSCADOR ---
-        function scrollToMaterias() {
-            // Cuando el usuario hace click en el buscador arriba de todo, scrolleamos suavemente
-            // hacia el catálogo para que pueda ver en tiempo real cómo se filtran los resultados.
-            document.getElementById("materias").scrollIntoView({ behavior: "smooth" });
         }
     </script>
 </body>

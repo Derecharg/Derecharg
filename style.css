@@ -1336,6 +1336,43 @@ footer {
     pointer-events: none;
 }
 
+/* Dropdown Predictivo del Buscador */
+.search-results-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--bg-white);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    border-radius: 12px;
+    margin-top: 5px;
+    z-index: 1000;
+    max-height: 250px;
+    overflow-y: auto;
+    display: none;
+    list-style: none;
+    padding: 0;
+    text-align: left;
+}
+
+.search-results-dropdown li {
+    padding: 15px 24px;
+    border-bottom: 1px solid #f0f4f8;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    color: var(--text-main);
+    font-weight: 500;
+}
+
+.search-results-dropdown li:last-child {
+    border-bottom: none;
+}
+
+.search-results-dropdown li:hover {
+    background-color: #f8fafc;
+    color: var(--accent-color);
+}
+
 /* Ocultar materias y categorías cuando no coinciden con la búsqueda */
 .oculto {
     display: none !important;

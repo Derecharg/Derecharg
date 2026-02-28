@@ -259,8 +259,8 @@
         <div class="container magnet-container">
             <div class="magnet-text">
                 <h2 style="color: white !important;">Comprobá nuestra calidad técnica ⚖️ </h2>
-                <p>Dejanos tu correo y te enviamos la <strong>Unidad 1 de Derecho Administrativo</strong> (Teoría del
-                    Acto Administrativo) directo a tu bandeja de entrada.</p>
+                <p>Dejanos tu correo y te enviamos la <strong>Introducción al Derecho</strong> directo a tu bandeja de
+                    entrada y habilitamos la lectura inmediata.</p>
 
                 <ul class="magnet-features">
                     <li>✅ Resumen 100% Actualizado</li>
@@ -278,7 +278,7 @@
                     <span id="email-error" class="error-message">Ingresá un correo válido (ej: nombre@mail.com)</span>
 
                     <button type="submit" class="btn-magnet" id="btn-submit-lead">
-                        <span class="btn-text">📥 Obtener Unidad 1 Gratis</span>
+                        <span class="btn-text">📥 Obtener Introducción al Derecho gratis</span>
                         <div class="spinner" id="loader-spinner" style="display:none;"></div>
                     </button>
                 </form>
@@ -1012,7 +1012,7 @@
                 // Web3Forms Integration
                 const formData = new FormData();
                 formData.append("access_key", "e6fa74e2-ced3-4962-a7e0-658219e65ddd");
-                formData.append("subject", "¡Nuevo Lead de Unidad 1! 📥");
+                formData.append("subject", "¡Nuevo Lead de Introducción al Derecho! 📥");
                 formData.append("name", nameInput.value.trim());
                 formData.append("email", emailInput.value.trim());
                 formData.append("from_name", "Derecharg Landing Page");
@@ -1034,8 +1034,15 @@
                             spinner.style.display = 'none';
                             btn.style.backgroundColor = "#25D366"; // Verde éxito
 
+                            // En lugar de redirigir, abrimos el Visor de Estudio
                             setTimeout(() => {
-                                window.location.href = "https://drive.google.com/drive/folders/18Ruhbz0BuOGf6l-e26Wd3ogc8JHpPHGL";
+                                // Devolvemos el botón a la normalidad en caso de que lo vuelva a cerrar
+                                btnText.innerText = "📥 Obtener Introducción al Derecho gratis";
+                                btn.style.backgroundColor = "";
+                                btn.disabled = false;
+
+                                // Ejecuta la función del catálogo (vacío el PDF id hasta que el usuario lo pase)
+                                abrirVisorEstudio('Introducción al Derecho', '', '');
                             }, 1000);
                         } else {
                             throw new Error('Server error');

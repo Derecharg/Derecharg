@@ -101,8 +101,16 @@
         <div class="container">
             <h1>Domina el Derecho con Casos Prácticos Reales</h1>
             <p>El material de estudio definitivo para estudiantes de derecho. Simplificamos conceptos complejos de forma
-                clara y directa para que apruebes con confianza.</p><a href="#materias" class="cta-button">Ver Materias
-                Disponibles</a>
+                clara y directa para que apruebes con confianza.</p>
+
+            <!-- Buscador de Materias en el Hero -->
+            <div class="search-wrapper" style="margin-top: 25px; margin-bottom: 25px;">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="buscador-materias" placeholder="Buscar materia (Ej: Penal, Romano...)"
+                    onkeyup="filtrarMaterias()" onfocus="scrollToMaterias()">
+            </div>
+
+            <a href="#materias" class="cta-button">Ver Catálogo Completo</a>
         </div>
     </header>
     <section class="benefits">
@@ -135,13 +143,6 @@
         <div class="container">
             <h2 class="titulo-seccion">Catálogo Académico Derecharg</h2>
             <p class="subtitulo-seccion">Selecciona tu materia para ingresar al visor de contenido.</p>
-
-            <!-- Buscador de Materias -->
-            <div class="search-wrapper">
-                <span class="search-icon">🔍</span>
-                <input type="text" id="buscador-materias" placeholder="Buscar materia (Ej: Penal, Romano...)"
-                    onkeyup="filtrarMaterias()">
-            </div>
 
             <h3 class="categoria-titulo">Ciclo Básico y Fundamentos</h3>
             <div class="grid-materias">
@@ -1088,6 +1089,13 @@
                     }
                 }
             });
+        }
+
+        // --- UX DEL BUSCADOR ---
+        function scrollToMaterias() {
+            // Cuando el usuario hace click en el buscador arriba de todo, scrolleamos suavemente
+            // hacia el catálogo para que pueda ver en tiempo real cómo se filtran los resultados.
+            document.getElementById("materias").scrollIntoView({ behavior: "smooth" });
         }
     </script>
 </body>

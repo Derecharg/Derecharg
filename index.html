@@ -272,15 +272,12 @@
 
             <div class="magnet-action">
                 <form id="lead-form" class="pro-form" novalidate>
-                    <input type="text" id="lead-name" placeholder="Tu nombre" required>
-                    <span id="name-error" class="error-message">Por favor, ingresá tu nombre</span>
+                    <input type="text" id="lead-name" placeholder="Tu nombre (Opcional)">
 
-                    <input type="email" id="lead-email" placeholder="Tu correo de estudiante" required>
-                    <span id="email-error" class="error-message">Ingresá un correo válido (ej: nombre@mail.com)</span>
+                    <input type="email" id="lead-email" placeholder="Tu correo de estudiante (Opcional)">
 
                     <button type="submit" class="btn-magnet" id="btn-submit-lead">
                         <span class="btn-text">📥 Obtener Introducción al Derecho gratis</span>
-                        <div class="spinner" id="loader-spinner" style="display:none;"></div>
                     </button>
                 </form>
             </div>
@@ -970,43 +967,17 @@
         document.getElementById('lead-form').addEventListener('submit', function (e) {
             e.preventDefault();
 
-            // Referencias
+            // 1. ABRIR EL VISOR INMEDIATAMENTE (Bypass de espera para el usuario)
+            abrirVisorEstudio('Introducción al Derecho', '1BrXUDjKw05-pWLOIGJdmb3eGBgxX8hy4', '');
+
+            // 2. RECUPERAR DATOS DEL FORMULARIO
             const nameInput = document.getElementById('lead-name');
             const emailInput = document.getElementById('lead-email');
-            const nameError = document.getElementById('name-error');
-            const emailError = document.getElementById('email-error');
-            const btn = document.getElementById('btn-submit-lead');
-            const btnText = btn.querySelector('.btn-text');
-            const spinner = document.getElementById('loader-spinner');
 
-            let isValid = true;
-
-            // Validación de Nombre
-            if (nameInput.value.trim().length < 3) {
-                nameInput.classList.add('input-error');
-                nameError.style.display = 'block';
-                isValid = false;
-            } else {
-                nameInput.classList.remove('input-error');
-                nameError.style.display = 'none';
-            }
-
-            // Validación de Email (Regex profesional)
+            // Si el usuario ingresó un correo válido, lo enviamos silenciosamente en segundo plano
             const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailPattern.test(emailInput.value)) {
-                emailInput.classList.add('input-error');
-                emailError.style.display = 'block';
-                isValid = false;
-            } else {
-                emailInput.classList.remove('input-error');
-                emailError.style.display = 'none';
-            }
 
-            if (isValid) {
-                // --- INICIO ESTADO DE CARGA ---
-                btn.disabled = true;
-                btnText.style.display = 'none';
-                spinner.style.display = 'block';
+            if (nameInput.value.trim().length > 0 && emailPattern.test(emailInput.value)) {
 
                 // Web3Forms Integration
                 const formData = new FormData();
@@ -1019,41 +990,11 @@
                 fetch("https://api.web3forms.com/submit", {
                     method: "POST",
                     body: formData
-                })
-                    .then(async (response) => {
-                        if (response.status == 200) {
-                            // Registro en Analytics
-                            if (typeof gtag === 'function') {
-                                gtag('event', 'lead_captured', { 'method': 'form' });
-                            }
-
-                            // Éxito: Feedback final al usuario
-                            btnText.innerText = "¡Enviado con éxito! ✅";
-                            btnText.style.display = 'block';
-                            spinner.style.display = 'none';
-                            btn.style.backgroundColor = "#25D366"; // Verde éxito
-
-                            // En lugar de redirigir, abrimos el Visor de Estudio
-                            setTimeout(() => {
-                                // Devolvemos el botón a la normalidad en caso de que lo vuelva a cerrar
-                                btnText.innerText = "📥 Obtener Introducción al Derecho gratis";
-                                btn.style.backgroundColor = "";
-                                btn.disabled = false;
-
-                                // Ejecuta la función del catálogo llamando al PDF precargado
-                                abrirVisorEstudio('Introducción al Derecho', '1BrXUDjKw05-pWLOIGJdmb3eGBgxX8hy4', '');
-                            }, 1000);
-                        } else {
-                            throw new Error('Server error');
-                        }
-                    })
-                    .catch(error => {
-                        console.error("Error al enviar el formulario:", error);
-                        spinner.style.display = 'none';
-                        btnText.style.display = 'block';
-                        btnText.innerHTML = 'Error de conexión. Intenta de nuevo ❌';
-                        btn.disabled = false;
-                    });
+                }).then(response => {
+                    if (response.status == 200 && typeof gtag === 'function') {
+                        gtag('event', 'lead_captured', { 'method': 'form' });
+                    }
+                }).catch(err => console.log("Silent form error:", err));
             }
         });
 

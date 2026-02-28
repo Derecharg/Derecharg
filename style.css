@@ -1294,3 +1294,49 @@ footer {
         transform: rotate(360deg);
     }
 }
+
+/* --- BUSCADOR DE MATERIAS --- */
+.search-wrapper {
+    max-width: 600px;
+    margin: 0 auto 40px auto;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+#buscador-materias {
+    width: 100%;
+    padding: 16px 24px;
+    padding-left: 55px;
+    /* Espacio para el icono */
+    border-radius: 50px;
+    border: 2px solid #e2e8f0;
+    font-size: 1.1rem;
+    font-family: var(--font-body);
+    color: var(--text-main);
+    background-color: var(--bg-white);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+#buscador-materias:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 10px 30px rgba(214, 158, 46, 0.2);
+    transform: translateY(-2px);
+}
+
+.search-icon {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.3rem;
+    color: var(--text-muted);
+    pointer-events: none;
+}
+
+/* Ocultar materias y categorías cuando no coinciden con la búsqueda */
+.oculto {
+    display: none !important;
+}

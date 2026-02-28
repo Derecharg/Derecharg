@@ -135,6 +135,14 @@
         <div class="container">
             <h2 class="titulo-seccion">Catálogo Académico Derecharg</h2>
             <p class="subtitulo-seccion">Selecciona tu materia para ingresar al visor de contenido.</p>
+
+            <!-- Buscador de Materias -->
+            <div class="search-wrapper">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="buscador-materias" placeholder="Buscar materia (Ej: Penal, Romano...)"
+                    onkeyup="filtrarMaterias()">
+            </div>
+
             <h3 class="categoria-titulo">Ciclo Básico y Fundamentos</h3>
             <div class="grid-materias">
                 <div class="card-materia" onclick="abrirVisorEstudio('Introducción al Derecho', '', '')">
@@ -1038,10 +1046,49 @@
                         btnText.style.display = 'block';
                         btnText.innerHTML = 'Error de conexión. Intenta de nuevo ❌';
                         btn.disabled = false;
-                        btn.style.backgroundColor = '#e53e3e';
                     });
             }
         });
+
+        // --- FUNCION DEL BUSCADOR DE MATERIAS ---
+        function filtrarMaterias() {
+            const input = document.getElementById('buscador-materias');
+            const filtro = input.value.toLowerCase();
+            const cards = document.querySelectorAll('.card-materia');
+            let tieneResultados = false;
+
+            // Lógica principal de búsqueda (ocultar cards que no coinciden)
+            cards.forEach(card => {
+                const titulo = card.querySelector('h3').textContent.toLowerCase();
+                if (titulo.indexOf(filtro) > -1) {
+                    card.classList.remove('oculto');
+                    tieneResultados = true;
+                } else {
+                    card.classList.add('oculto');
+                }
+            });
+
+            // Lógica secundaria: Ocultar los títulos de las categorías si no hay ninguna materia visible debajo de ellas
+            const categorias = document.querySelectorAll('.categoria-titulo');
+            categorias.forEach(cat => {
+                // El siguiente hermano en el DOM que es la grilla de materias (.grid-materias)
+                const grilla = cat.nextElementSibling;
+                if (grilla && grilla.classList.contains('grid-materias')) {
+                    // Revisamos cuantas cards visibles quedaron en esta grilla en particular
+                    const materiasVisibles = grilla.querySelectorAll('.card-materia:not(.oculto)');
+
+                    if (materiasVisibles.length === 0 && filtro !== "") {
+                        // Si en esta categoría no hay coincidencias, ocultamos el título de la categoría también
+                        cat.style.display = 'none';
+                        grilla.style.display = 'none';
+                    } else {
+                        // Si hay coincidencias, nos aseguramos que se muestre normal
+                        cat.style.display = 'block';
+                        grilla.style.display = 'grid'; // Grid es su display original
+                    }
+                }
+            });
+        }
     </script>
 </body>
 

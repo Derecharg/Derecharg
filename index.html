@@ -1149,40 +1149,79 @@
     </div>
 
     <script>
+        // Función para abrir/cerrar el chat
         function toggleAIChat() {
             const chatWindow = document.getElementById('ai-chat-window');
-            if (chatWindow.classList.contains('chat-hidden')) {
-                chatWindow.classList.remove('chat-hidden');
-            } else {
-                chatWindow.classList.add('chat-hidden');
-            }
+            chatWindow.classList.toggle('chat-hidden');
         }
 
+        // Función principal para enviar y procesar mensajes
         function enviarMensaje() {
             const input = document.getElementById('user-msg');
-            const msg = input.value.trim();
-            if (msg !== '') {
-                const messagesDiv = document.getElementById('chat-messages');
+            const container = document.getElementById('chat-messages');
+            const mensaje = input.value.trim().toLowerCase();
 
-                // Add user message
-                const userDiv = document.createElement('div');
-                userDiv.className = 'msg user';
-                userDiv.innerText = msg;
-                messagesDiv.appendChild(userDiv);
+            if (mensaje === "") return;
 
-                input.value = '';
-                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            // 1. Mostrar mensaje del usuario en la pantalla
+            agregarBurbuja(input.value, 'user');
+            input.value = ""; // Limpiar input
 
-                // Simulate bot response after 1 second
-                setTimeout(() => {
-                    const botDiv = document.createElement('div');
-                    botDiv.className = 'msg bot';
-                    botDiv.innerText = 'Pronto estaré 100% operativo para responder tus dudas sobre: "' + msg + '". ¡Mantenete atento!';
-                    messagesDiv.appendChild(botDiv);
-                    messagesDiv.scrollTop = messagesDiv.scrollHeight;
-                }, 1000);
-            }
+            // 2. Simulamos una "pausa de pensamiento" de la IA
+            setTimeout(() => {
+                const respuesta = generarRespuestaIA(mensaje);
+                agregarBurbuja(respuesta, 'bot');
+                // Scroll automático al último mensaje
+                container.scrollTop = container.scrollHeight;
+            }, 800);
         }
+
+        // El "Cerebro" de Lex: Diccionario de respuestas inteligentes
+        function generarRespuestaIA(input) {
+            // Caso: Derecho Administrativo
+            if (input.includes("administrativo") || input.includes("acto")) {
+                return "El Derecho Administrativo es mi especialidad. ⚖️ Si estás con la Unidad 1, recordá que los elementos del Acto (Art. 7 Ley 19.549) son clave para el parcial. ¿Querés que te muestre el resumen completo?";
+            }
+
+            // Caso: Precios o Costo
+            if (input.includes("precio") || input.includes("cuanto cuesta") || input.includes("pagar") || input.includes("valor")) {
+                return "¡Hola! El pack completo de materias está en promo a **$24.499**. Podés pagar por Mercado Pago o Transferencia BAPRO (esta última suma puntos extra). ¿Te paso los datos?";
+            }
+
+            // Caso: Puntos
+            if (input.includes("puntos") || input.includes("bonificacion") || input.includes("puntos derecharg")) {
+                return "¡Exacto! Por cada compra sumás **Puntos de Mérito**. Al llegar a 200 puntos, desbloqueás una materia premium de regalo. ¡Logueate arriba para ver tus puntos actuales!";
+            }
+
+            // Caso: Otras materias
+            if (input.includes("societario") || input.includes("reales") || input.includes("penal")) {
+                return "¡Excelente materia! Tenemos resúmenes actualizados al 2026 para esa cátedra. Están diseñados para que no tengas que leer los manuales infinitos. ¿Querés ver una muestra gratis?";
+            }
+
+            // Caso: Saludo o genérico
+            if (input.includes("hola") || input.includes("buen") || input.includes("quien sos")) {
+                return "¡Hola! Soy Lex, tu tutor digital en **Derecharg**. Estoy acá para ayudarte a filtrar el ruido y que apruebes las materias más pesadas de la carrera. ¿Qué estás cursando?";
+            }
+
+            // Respuesta por defecto
+            return "Interesante pregunta... Como estudiante de derecho, te diría que la clave está en la síntesis. 📚 No estoy seguro de entenderte bien, pero si buscás un resumen específico, fijate en nuestra sección de 'Especialidades'.";
+        }
+
+        // Función auxiliar para crear las burbujas de chat
+        function agregarBurbuja(texto, remitente) {
+            const container = document.getElementById('chat-messages');
+            const div = document.createElement('div');
+            div.classList.add('msg', remitente);
+            div.innerText = texto;
+            container.appendChild(div);
+        }
+
+        // Permitir enviar con la tecla Enter
+        document.getElementById('user-msg')?.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                enviarMensaje();
+            }
+        });
     </script>
 </body>
 

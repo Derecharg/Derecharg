@@ -1060,7 +1060,7 @@
                 const titulo = tituloElement ? tituloElement.textContent : '';
 
                 if (titulo.toLowerCase().indexOf(filtro) > -1) {
-                    card.classList.remove('oculto');
+                    card.classList.remove('hidden');
                     tieneResultados = true;
 
                     // Si el usuario escribió algo, poblamos el menú desplegable
@@ -1081,7 +1081,7 @@
                         dropdown.appendChild(li);
                     }
                 } else {
-                    card.classList.add('oculto');
+                    card.classList.add('hidden');
                 }
             });
 
@@ -1104,7 +1104,7 @@
             categorias.forEach(cat => {
                 const grilla = cat.nextElementSibling;
                 if (grilla && grilla.classList.contains('grid-materias')) {
-                    const materiasVisibles = grilla.querySelectorAll('.card-materia:not(.oculto)');
+                    const materiasVisibles = grilla.querySelectorAll('.card-materia:not(.hidden)');
                     if (materiasVisibles.length === 0 && filtro !== "") {
                         cat.style.display = 'none';
                         grilla.style.display = 'none';

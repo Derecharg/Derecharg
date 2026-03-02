@@ -1151,13 +1151,25 @@
             agregarBurbuja(input.value, 'user');
             input.value = ""; // Limpiar input
 
-            // 2. Simulamos una "pausa de pensamiento" de la IA
+            // 2. Mostrar la burbuja de "Escribiendo..."
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'typing';
+            typingDiv.innerHTML = '<span></span><span></span><span></span>';
+            container.appendChild(typingDiv);
+            container.scrollTop = container.scrollHeight;
+
+            // 3. Simulamos una "pausa de pensamiento" de la IA
             setTimeout(() => {
+                // Eliminar la burbuja de escribiendo
+                typingDiv.remove();
+
+                // Agregar la respuesta real
                 const respuesta = generarRespuestaIA(mensaje);
                 agregarBurbuja(respuesta, 'bot');
+
                 // Scroll automático al último mensaje
                 container.scrollTop = container.scrollHeight;
-            }, 800);
+            }, 1200); // Aumentado ligeramente para que se aprecie la animación
         }
 
         // El "Cerebro" de Lex: Diccionario de respuestas inteligentes

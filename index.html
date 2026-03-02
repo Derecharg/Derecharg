@@ -1149,10 +1149,10 @@
         }
 
         // Función principal para enviar y procesar mensajes
-        async function enviarMensaje() {
+        async function enviarMensaje() { // Agregamos 'async'
             const input = document.getElementById('user-msg');
             const container = document.getElementById('chat-messages');
-            const mensaje = input.value.trim().toLowerCase();
+            const mensaje = input.value.trim();
 
             if (mensaje === "") return;
 
@@ -1168,13 +1168,10 @@
             container.appendChild(typingIndicator);
             container.scrollTop = container.scrollHeight;
 
-            // 3. Generar y mostrar respuesta de Lex usando Gemini
-            const respuesta = await generarRespuestaIA(mensaje);
+            // LLAMADA REAL A LA IA
+            const respuesta = await generarRespuestaIA(mensaje); // Agregamos 'await'
 
-            // Quitar indicador de escritura
-            const indicator = document.getElementById('typing-id');
-            if (indicator) indicator.remove();
-
+            if (document.getElementById('typing-id')) document.getElementById('typing-id').remove();
             agregarBurbuja(respuesta, 'bot');
             container.scrollTop = container.scrollHeight;
         }

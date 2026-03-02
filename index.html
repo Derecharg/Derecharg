@@ -1123,6 +1123,67 @@
             });
         }
     </script>
+    <!-- Botón Flotante AI Chat -->
+    <div id="ai-chat-launcher" onclick="toggleAIChat()">
+        <span class="ai-icon">🤖</span>
+    </div>
+
+    <!-- Ventana AI Chat -->
+    <div id="ai-chat-window" class="chat-hidden">
+        <div class="chat-header">
+            <div class="ai-info">
+                <strong>Lex - Asistente Derecharg</strong>
+                <span>En línea para ayudarte</span>
+            </div>
+            <button onclick="toggleAIChat()" class="close-chat">&times;</button>
+        </div>
+        <div id="chat-messages" class="chat-messages">
+            <div class="msg bot">¡Hola! Soy Lex. Soy estudiante avanzado igual que vos. ¿En qué materia te puedo dar una
+                mano hoy?</div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="user-msg" placeholder="Escribí tu duda académica..."
+                onkeypress="if(event.key === 'Enter') enviarMensaje()">
+            <button onclick="enviarMensaje()">⚖️</button>
+        </div>
+    </div>
+
+    <script>
+        function toggleAIChat() {
+            const chatWindow = document.getElementById('ai-chat-window');
+            if (chatWindow.classList.contains('chat-hidden')) {
+                chatWindow.classList.remove('chat-hidden');
+            } else {
+                chatWindow.classList.add('chat-hidden');
+            }
+        }
+
+        function enviarMensaje() {
+            const input = document.getElementById('user-msg');
+            const msg = input.value.trim();
+            if (msg !== '') {
+                const messagesDiv = document.getElementById('chat-messages');
+
+                // Add user message
+                const userDiv = document.createElement('div');
+                userDiv.className = 'msg user';
+                userDiv.innerText = msg;
+                messagesDiv.appendChild(userDiv);
+
+                input.value = '';
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+                // Simulate bot response after 1 second
+                setTimeout(() => {
+                    const botDiv = document.createElement('div');
+                    botDiv.className = 'msg bot';
+                    botDiv.innerText = 'Pronto estaré 100% operativo para responder tus dudas sobre: "' + msg + '". ¡Mantenete atento!';
+                    messagesDiv.appendChild(botDiv);
+                    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+                }, 1000);
+            }
+        }
+    </script>
 </body>
 
 </html>

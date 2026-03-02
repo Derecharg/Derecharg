@@ -1149,7 +1149,7 @@
         }
 
         // Función principal para enviar y procesar mensajes
-        function enviarMensaje() {
+        async function enviarMensaje() {
             const input = document.getElementById('user-msg');
             const container = document.getElementById('chat-messages');
             const mensaje = input.value.trim().toLowerCase();
@@ -1168,48 +1168,49 @@
             container.appendChild(typingIndicator);
             container.scrollTop = container.scrollHeight;
 
-            // 3. Simular tiempo de respuesta humano (1.5 segundos)
-            setTimeout(() => {
-                // Quitar indicador de escritura
-                const indicator = document.getElementById('typing-id');
-                if (indicator) indicator.remove();
+            // 3. Generar y mostrar respuesta de Lex usando Gemini
+            const respuesta = await generarRespuestaIA(mensaje);
 
-                // Generar y mostrar respuesta de Lex
-                const respuesta = generarRespuestaIA(mensaje);
-                agregarBurbuja(respuesta, 'bot');
-                container.scrollTop = container.scrollHeight;
-            }, 1500);
+            // Quitar indicador de escritura
+            const indicator = document.getElementById('typing-id');
+            if (indicator) indicator.remove();
+
+            agregarBurbuja(respuesta, 'bot');
+            container.scrollTop = container.scrollHeight;
         }
 
-        // El "Cerebro" de Lex: Diccionario de respuestas inteligentes
-        function generarRespuestaIA(input) {
-            // Caso: Derecho Administrativo
-            if (input.includes("administrativo") || input.includes("acto")) {
-                return "El Derecho Administrativo es mi especialidad. ⚖️ Si estás con la Unidad 1, recordá que los elementos del Acto (Art. 7 Ley 19.549) son clave para el parcial. ¿Querés que te muestre el resumen completo?";
-            }
+        async function generarRespuestaIA(mensajeUsuario) {
+            const API_KEY = "AIzaSyB1zD9-UD6WqQSP-0ErMTk-FMsROgz2SBY";
+            const URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
 
-            // Caso: Precios o Costo
-            if (input.includes("precio") || input.includes("cuanto cuesta") || input.includes("pagar") || input.includes("valor")) {
-                return "¡Hola! El pack completo de materias está en promo a **$24.499**. Podés pagar por Mercado Pago o Transferencia BAPRO (esta última suma puntos extra). ¿Te paso los datos?";
-            }
+            // CONFIGURACIÓN DE PERSONALIDAD (System Instruction)
+            const promptSistema = `
+                Sos Lex, el asistente inteligente de 'Derecharg'. Tu creador es Lautaro Pascual, estudiante de 5to año de la UNLP. 
+                Tu personalidad: Sos un compañero de facultad brillante, motivador y técnico. 
+                Tu objetivo: Ayudar a alumnos de Derecho en Argentina con dudas académicas y promover la compra del pack de resúmenes de $24.499.
+                Contexto importante: Mencioná fallos, leyes argentinas y siempre recordá que los resúmenes de Lautaro son la mejor forma de aprobar sin leer manuales infinitos. 
+                Si te preguntan por Lautaro o el CBU, usá los datos de la web.
+            `;
 
-            // Caso: Puntos
-            if (input.includes("puntos") || input.includes("bonificacion") || input.includes("puntos derecharg")) {
-                return "¡Exacto! Por cada compra sumás **Puntos de Mérito**. Al llegar a 200 puntos, desbloqueás una materia premium de regalo. ¡Logueate arriba para ver tus puntos actuales!";
-            }
+            try {
+                const response = await fetch(URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{
+                            parts: [{ text: promptSistema + "\n\nPregunta del alumno: " + mensajeUsuario }]
+                        }]
+                    })
+                });
 
-            // Caso: Otras materias
-            if (input.includes("societario") || input.includes("reales") || input.includes("penal")) {
-                return "¡Excelente materia! Tenemos resúmenes actualizados al 2026 para esa cátedra. Están diseñados para que no tengas que leer los manuales infinitos. ¿Querés ver una muestra gratis?";
-            }
+                const data = await response.json();
+                // Extraemos la respuesta de la estructura de Gemini
+                return data.candidates[0].content.parts[0].text;
 
-            // Caso: Saludo o genérico
-            if (input.includes("hola") || input.includes("buen") || input.includes("quien sos")) {
-                return "¡Hola! Soy Lex, tu tutor digital en **Derecharg**. Estoy acá para ayudarte a filtrar el ruido y que apruebes las materias más pesadas de la carrera. ¿Qué estás cursando?";
+            } catch (error) {
+                console.error("Error con Gemini:", error);
+                return "Perdoná, colega. Se me cortó la conexión con el servidor jurídico. ¿Me repetís la pregunta?";
             }
-
-            // Respuesta por defecto
-            return "Interesante pregunta... Como estudiante de derecho, te diría que la clave está en la síntesis. 📚 No estoy seguro de entenderte bien, pero si buscás un resumen específico, fijate en nuestra sección de 'Especialidades'.";
         }
 
         // Función auxiliar para crear las burbujas de chat

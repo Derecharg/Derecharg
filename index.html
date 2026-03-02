@@ -104,14 +104,18 @@
                 clara y directa para que apruebes con confianza.</p>
 
             <!-- Buscador de Materias en el Hero -->
-            <div class="search-wrapper" style="margin-top: 25px; margin-bottom: 25px;">
-                <span class="search-icon">🔍</span>
-                <input type="text" id="buscador-materias" placeholder="Buscar materia (Ej: Penal, Romano...)"
-                    onkeyup="filtrarMaterias()" autocomplete="off">
-                <ul id="search-results" class="search-results-dropdown"></ul>
+            <div class="search-container" style="margin-top: 25px; margin-bottom: 25px; position: relative;">
+                <div class="search-box" style="position: relative;">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="materiaSearch" onkeyup="filtrarMaterias()"
+                        placeholder="Buscá tu materia (ej: Penal, Civil, Ipc, etc)..." autocomplete="off">
+                    <ul id="search-results" class="search-results-dropdown"></ul>
+                </div>
+                <p id="no-results" style="display:none; text-align:center; color:#888; margin-top:20px;">No encontramos
+                    esa materia, pero escribinos por WhatsApp y la conseguimos. ⚖️</p>
             </div>
 
-            <a href="#" onclick="event.preventDefault(); document.getElementById('buscador-materias').focus();"
+            <a href="#" onclick="event.preventDefault(); document.getElementById('materiaSearch').focus();"
                 class="cta-button">Ver Catálogo Completo</a>
         </div>
     </header>
@@ -1041,10 +1045,11 @@
 
         // --- FUNCION DEL BUSCADOR DE MATERIAS ---
         function filtrarMaterias() {
-            const input = document.getElementById('buscador-materias');
+            const input = document.getElementById('materiaSearch');
             const filtro = input.value.toLowerCase();
             const cards = document.querySelectorAll('.card-materia');
             const dropdown = document.getElementById('search-results');
+            const noResultsMsg = document.getElementById('no-results');
 
             dropdown.innerHTML = ''; // Limpiar dropdown
             let tieneResultados = false;
@@ -1084,10 +1089,14 @@
             if (filtro.length > 0) {
                 dropdown.style.display = 'block';
                 if (!tieneResultados) {
-                    dropdown.innerHTML = '<li class="no-results" style="padding: 15px 20px; color: #888; text-align: center; cursor: default;">No se encontraron materias</li>';
+                    dropdown.style.display = 'none'; // ocultar dropdown si no hay nada
+                    noResultsMsg.style.display = 'block'; // mostrar mensaje inferior
+                } else {
+                    noResultsMsg.style.display = 'none';
                 }
             } else {
                 dropdown.style.display = 'none';
+                noResultsMsg.style.display = 'none';
             }
 
             // Lógica secundaria: Ocultar los títulos de las categorías si están vacías interactuando con el DOM

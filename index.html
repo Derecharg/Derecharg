@@ -1201,11 +1201,18 @@
                 });
 
                 const data = await response.json();
+
+                // Si la API devuelve un error (ej. API Invalida, sin saldo), lo atrapamos acá
+                if (!response.ok) {
+                    console.error("Detalle del error de Google Gemini:", data);
+                    throw new Error(data.error ? data.error.message : "Error desconocido de API");
+                }
+
                 // Extraemos la respuesta de la estructura de Gemini
                 return data.candidates[0].content.parts[0].text;
 
             } catch (error) {
-                console.error("Error con Gemini:", error);
+                console.error("Error capturado con Gemini:", error);
                 return "Perdoná, colega. Se me cortó la conexión con el servidor jurídico. ¿Me repetís la pregunta?";
             }
         }
